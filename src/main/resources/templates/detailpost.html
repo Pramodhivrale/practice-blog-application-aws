@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${post.title}">My Blog Post</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+}
+
+.container {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+	font-size: 2em;
+	margin-bottom: 10px;
+}
+
+.meta {
+	color: #555;
+	margin-bottom: 20px;
+}
+
+.content {
+	line-height: 1.6;
+}
+
+.content p {
+	margin-bottom: 15px;
+}
+
+.comment-form {
+	margin-top: 30px;
+}
+
+.comment-form input, .comment-form textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.comment-form button {
+	background-color: #007bff;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="title" th:text="${post.title}">Blog Post</div>
+		<div class="meta">
+			<span th:text="${post.createdDate}">June 7, 2024</span>
+		</div>
+		<div class="content" th:utext="${post.maindata}">
+			<!-- Content will be injected here -->
+		</div>
+
+		<!-- Comment Section -->
+		<div class="comment-form">
+			<h3>Add a Comment</h3>
+			<form action="/postttt" method="post" th:object="${commentForm}">
+			<!--	<input type="hidden" name="postId" th:value="${post.id}"> -->
+				<input	type="text" name="name" th:field="*{name}" placeholder="Your Name" required>
+			    <input type="email" name="email" th:field="*{email}" placeholder="Your Email" required>
+				<textarea name="comment" th:field="*{comment}" placeholder="Your Comment" required></textarea>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>
