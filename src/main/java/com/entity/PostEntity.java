@@ -50,5 +50,5 @@ public class PostEntity {
 	private UserRegistrationEntity user;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	private List<Comments> comments;
+	private List<CommentsEntity> comments;
 }

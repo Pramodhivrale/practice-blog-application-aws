@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Table(name = "COMMENT_TABLE")
-public class Comments 
+public class CommentsEntity 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
