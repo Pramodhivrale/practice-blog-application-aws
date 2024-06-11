@@ -26,9 +26,16 @@ public class PostController {
 
 	@PostMapping("/submitpost")
 	public String addPost(@ModelAttribute("post") AddPostData addPostData, Model model) {
-		String post = postServiceImpl.addPost(addPostData);
-		model.addAttribute("respo", post);
+		String msg = postServiceImpl.addPost(addPostData);
+		model.addAttribute("respo", msg);
 		return "post";
+	}
+	@GetMapping("/submitpost")
+	public String addBlog(Model model) 
+	{
+		model.addAttribute("post", new AddPostData());
+		return "post";
+		
 	}
 
 	@GetMapping("/posts")

@@ -18,6 +18,11 @@ public interface PostService
 	public String addComment(Integer id,CommentForm commentForm);
 	
 	public List<CommentsEntity> getComments(Integer id);
+
+	List<PostEntity> getYourBlogs(Integer id);
+
+	String deletById(Integer id);
+
 		
 	
 

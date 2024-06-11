@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.binding.CommentForm;
+import com.binding.UpdateForm;
 import com.entity.CommentsEntity;
 import com.entity.PostEntity;
 import com.entity.UserRegistrationEntity;
@@ -28,7 +29,7 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private UserRepo userRepo;
-	
+
 	@Autowired
 	private CommentRepo commentRepo;
 
@@ -74,36 +75,83 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public String addComment(Integer id,CommentForm commentForm) 
-	{
+	public String addComment(Integer id, CommentForm commentForm) {
 		Optional<PostEntity> postlistNo = postDatarepo.findById(id);
 		PostEntity postEntity = postlistNo.get();
-		
-		CommentsEntity commentsEntity=new CommentsEntity();
+
+		CommentsEntity commentsEntity = new CommentsEntity();
 		commentsEntity.setName(commentForm.getName());
 		commentsEntity.setEmail(commentForm.getEmail());
 		commentsEntity.setComment(commentForm.getComment());
 		commentsEntity.setPost(postEntity);
-		
+
 		CommentsEntity comment = commentRepo.save(commentsEntity);
-		
-		if(comment != null) {
+
+		if (comment != null) {
 			return "Comment added";
-		}
-		else {
+		} else {
 			return "Comment not added";
 		}
-		
+
 	}
-	
+
 	@Override
-	public List<CommentsEntity> getComments(Integer id) 
-	{
+	public List<CommentsEntity> getComments(Integer id) {
 		Optional<PostEntity> byId = postDatarepo.findById(id);
 		PostEntity postEntity = byId.get();
 		List<CommentsEntity> comments = postEntity.getComments();
-		
+
 		return comments;
+	}
+
+	@Override
+	public List<PostEntity> getYourBlogs(Integer id) {
+
+		Optional<UserRegistrationEntity> byId = userRepo.findById(id);
+		if (byId.isPresent()) {
+			UserRegistrationEntity userRegistrationEntity = byId.get();
+			List<PostEntity> postEntities = postDatarepo.findByUser(userRegistrationEntity);
+			return postEntities;
+		}
+		return null;
+
+	}
+	@Override
+	public String deletById(Integer id) 
+	{
+		postDatarepo.deleteById(id);
+		
+		return "Record deleted";
+		
+	}
+	
+	
+	public PostEntity editblog(Integer id) 
+	{
+		
+		Optional<PostEntity> byId = postDatarepo.findById(id);
+		if(byId.isPresent()) {
+			PostEntity postEntity = byId.get();
+			return postEntity;
+		}
+		return null;
+	}
+	
+	public String updateBlog(Integer id,UpdateForm form) {
+		
+		Optional<PostEntity> byId = postDatarepo.findById(id);
+		if(byId.isPresent()) {
+			PostEntity postEntity = byId.get();
+			postEntity.setTitle(form.getTitle());
+			postEntity.setShortDescription(form.getShortDescription());
+			postEntity.setMainContent(form.getMainContent());
+		
+			PostEntity save = postDatarepo.save(postEntity);
+			return "Blog edited";
+		}
+		
+		return "Problem is not edited ";
+		
 	}
 
 }

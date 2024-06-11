@@ -106,7 +106,7 @@ button:hover {
 		</div>
 		<h3 th:text="${respo}"></h3>
 		<h1>Create Blog Post</h1>
-		<form th:action="@{/submitpost}" th:object="${post}" method="post">
+		<form th:action="@{/update/{id}(id=${update.id})}" th:object="${update}" method="post">
 			<label for="title">Title</label> <input type="text" id="title"
 				th:field="*{title}" required> 
 				
@@ -117,7 +117,7 @@ button:hover {
 			<label for="main_content">Main Content</label>
 			<textarea id="main_content" th:field="*{mainContent}" required></textarea>
 
-			<button type="submit">Submit</button>
+			<button type="submit">Update</button>
 
 		</form>
 	</div>
