@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.binding.PostForm;
 import com.binding.UserRegForm;
-import com.entity.PostEntity;
 import com.response.RegistraionData;
 import com.service.UserServiceImpl;
 
@@ -27,7 +26,6 @@ public class IndexController {
 
 	@PostMapping("/register")
 	public String regUser(RegistraionData registraionData, Model model) {
-		System.out.println(registraionData);
 		String registerUser = userServiceImpl.registerUser(registraionData);
 		model.addAttribute("msg", registerUser);
 		model.addAttribute("user", new RegistraionData());
@@ -38,7 +36,6 @@ public class IndexController {
 	@GetMapping("/login")
 	public String loadLoginPage(Model model) 
 	{
-		//model.addAttribute("login", new LoginData());
 		return "login";
 	}
 	
