@@ -60,6 +60,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>blog-application</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
